@@ -58,8 +58,8 @@ $ads = [
  */
 function price_format($price)
 {
-    $formatted_price = number_format($price, 0, '.', ' ') . '<b class="rub">р</b>' ;
-    return $formatted_price;
+    $formatted_price = number_format($price, 0, '.', ' ');
+    return $formatted_price . '<b class="rub">р</b>' ;
 }
 
 ?>
