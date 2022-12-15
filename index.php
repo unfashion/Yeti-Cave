@@ -33,7 +33,7 @@ $ads = [
     ],
     [
         "name"      => "Ботинки для сноуборда DC Mutiny Charocal",
-        "category"  => "boot",
+        "category"  => "boots",
         "price"     => 10999,
         "img"       => "img/lot-4.jpg",
     ],
