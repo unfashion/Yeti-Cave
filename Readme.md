@@ -1,6 +1,6 @@
-# Личный проект «{{projectTitle}}»
+# Личный проект «Yeti Cave»
 
-* Студент: [{{userName}}]({{userProfile}}).
+* Студент: Dmitry Bushuev
 * Наставник: `Неизвестно`.
 
 ---
