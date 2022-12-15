@@ -5,11 +5,11 @@ $user_name = 'Dimitry Bushuev'; // укажите здесь ваше имя
 
 $categories = [
     "boards"        => "Доски и лыжи",
-    "attachment"    => "Доски и лыжи",
+    "attachment"    => "Крепления",
     "boots"         => "Ботинки",
     "clothing"      => "Одежда",
-    "tools"         =>  "Инструменты",
-    "other"         =>  "Разное",
+    "tools"         => "Инструменты",
+    "other"         => "Разное",
 ];
 
 $ads = [
