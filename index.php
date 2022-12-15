@@ -28,7 +28,7 @@ $ads = [
     [
         "name"      => "Крепления Union Contact Pro 2015 года размер L/XL",
         "category"  => "attachment",
-        "price"     => 8000,
+        "price"     => 800 ,
         "img"       => "img/lot-3.jpg",
     ],
     [
@@ -51,6 +51,16 @@ $ads = [
     ],
 
 ];
+/**
+ * Price formatting
+ * @param number $price - start price
+ * @return string - formatted price
+ */
+function price_format($price)
+{
+    $formatted_price = number_format($price, 0, '.', ' ') . '<b class="rub">р</b>' ;
+    return $formatted_price;
+}
 
 ?>
 <!DOCTYPE html>
@@ -131,7 +141,7 @@ $ads = [
                             <div class="lot__state">
                                 <div class="lot__rate">
                                     <span class="lot__amount">Стартовая цена</span>
-                                    <span class="lot__cost"><?= $ad['price'] ?><b class="rub">р</b></span>
+                                    <span class="lot__cost"><?= price_format($ad['price']) ?></span>
                                 </div>
                                 <div class="lot__timer timer">
                                     12:23
