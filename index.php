@@ -53,7 +53,7 @@ $ads = [
 ];
 /**
  * Price formatting
- * @param number $price - start price
+ * @param int $price - start price
  * @return string - formatted price
  */
 function price_format($price)
