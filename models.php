@@ -30,12 +30,12 @@ function get_lots_list($link)
 }
 function get_lot($link, $id)
 {
-    $sql2 = 'SELECT `lot`.*, `category`.`name` AS `category_name` 
-    IF(MAX(`bet`.`price`), MAX(`bet`.`price`), `lot`.`start_price`) AS `price` 
-    FROM `lot` 
-    JOIN `category` ON `lot`.`category_id` = `category`.`id` 
-    LEFT JOIN `bet` ON `bet`.`lot_id` = `lot`.`id` 
-    WHERE `lot`.`id` =  ?';
+    // $sql = 'SELECT `lot`.*, `category`.`name` AS `category_name` 
+    // IF(MAX(`bet`.`price`), MAX(`bet`.`price`), `lot`.`start_price`) AS `price` 
+    // FROM `lot` 
+    // JOIN `category` ON `lot`.`category_id` = `category`.`id` 
+    // LEFT JOIN `bet` ON `bet`.`lot_id` = `lot`.`id` 
+    // WHERE `lot`.`id` =  ?';
 
     $sql = 'SELECT `lot`.*, `category`.`name` AS `category_name`
     FROM `lot` 
