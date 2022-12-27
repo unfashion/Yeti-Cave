@@ -24,7 +24,6 @@ if (empty($id)) {
     if ($lot['error']) {
         $errors[] = $categories['error'];
     }
-    print_r($lot);
     $main_content = include_template('lot.php', ['categories' => $categories['data'], 'lot' => $lot['data']]);
 }
 if ($errors) {
