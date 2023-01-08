@@ -6,7 +6,7 @@
  */
 function get_categories_list($link)
 {
-    $sql = 'SELECT `name`, `tag` FROM `category`';
+    $sql = 'SELECT * FROM `category`';
     $result = mysqli_query($link, $sql);
     $data = $result ? mysqli_fetch_all($result, MYSQLI_ASSOC) : '';
     return [
@@ -49,6 +49,17 @@ function get_lot($link, $id)
     $data = $result ? mysqli_fetch_assoc($result) : '';
     return [
         'data' => $data,
+        'error' => mysqli_error($link)
+    ];
+}
+
+function add_lot($link, $data)
+{
+    $sql = " INSERT INTO `lot` (`name`,`category_id`,`description`,`start_price`,`step`,`end_datetime`,`author_id`,`img`)
+    VALUES (?, ?, ?, ?, ?, ?, 1, ?)";
+    $stmt = db_get_prepare_stmt($link, $sql, $data);
+    return [
+        'id' => mysqli_stmt_execute($stmt) ? mysqli_insert_id($link) : null,
         'error' => mysqli_error($link)
     ];
 }
