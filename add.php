@@ -45,13 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!in_array(!null, $errors)) {
         $data = $_POST;
         $extension = pathinfo($_FILES['lot_img']['name'], PATHINFO_EXTENSION);
-        $new_name = uniqid() . ".$extension";
-        move_uploaded_file($_FILES['lot_img']['tmp_name'], 'uploads/' . $new_name);
-        $data['lot_img'] = 'uploads/' . $new_name;
+        $data['lot_img'] = 'uploads/' . uniqid() . ".$extension";
+        move_uploaded_file($_FILES['lot_img']['tmp_name'], $data['lot_img']);
         $add_lot = add_lot($link, $data);
 
         if ($add_lot['id']) {
-            print_r($add_lot);
             $lot_id = $add_lot['id'];
             header("Location: /lot.php?id=$lot_id");
         } else {
