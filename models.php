@@ -63,3 +63,15 @@ function add_lot($link, $data)
         'error' => mysqli_error($link)
     ];
 }
+function add_user($link, $data)
+{
+    $data['name'] = htmlspecialchars($data['name']);
+    $data['message'] = htmlspecialchars($data['message']);
+    $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+    $sql = "INSERT INTO `user` (`email`,`pwd`,`name`,`contacts`) VALUES (?, ?, ?, ?)";
+    $stmt = db_get_prepare_stmt($link, $sql, $data);
+    return [
+        'id' => mysqli_stmt_execute($stmt) ? mysqli_insert_id($link) : null,
+        'error' => mysqli_error($link)
+    ];
+}

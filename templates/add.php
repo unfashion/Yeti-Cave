@@ -8,7 +8,7 @@
             <?php endforeach ?>
         </ul>
     </nav>
-    <form class="form form--add-lot container form--invalid" action="/add.php" method="post" enctype="multipart/form-data">
+    <form class="form form--add-lot container <?= in_array(!null, $errors) ? 'form--invalid' : '' ?>" action="/add.php" method="post" enctype="multipart/form-data">
         <!-- form--invalid -->
         <h2>Добавление лота</h2>
         <div class="form__container-two">
@@ -63,7 +63,7 @@
                 <?php if ($errors['lot_date']) : ?><span class="form__error"><?= $errors['lot_date'] ?></span><?php endif ?>
             </div>
         </div>
-        <?php if (in_array(!null, $errors)) : ?><span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span><?php endif ?>
+        <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
         <button type="submit" class="button">Добавить лот</button>
     </form>
 </main>
