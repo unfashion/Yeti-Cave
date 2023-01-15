@@ -104,18 +104,18 @@ function validate_email($value, $link)
     if (!$value) {
         return ("Введите email");
     }
-    if(!filter_var($value, FILTER_VALIDATE_EMAIL)){
+    if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
         return ("Email введен не корректно");
     }
     $sql = "SELECT COUNT(*) FROM `user` WHERE `email` = ?";
     $email[] = $value;
     $stmt = db_get_prepare_stmt($link, $sql, $email);
-    if (!mysqli_stmt_execute($stmt)){
+    if (!mysqli_stmt_execute($stmt)) {
         return ("Ошибка запроса к БД");
     };
     $result = mysqli_stmt_get_result($stmt);
     $result = mysqli_fetch_row($result)[0];
-    if($result){
+    if ($result) {
         return ("Пользователь с таким email-ом уже зарегистрирован");
     }
     return null;
@@ -142,4 +142,15 @@ function validate_feedback($value)
         return ("Введите контактные данные");
     }
     return null;
+}
+
+function validate_login_email($value, $link)
+{
+    if (!$value) {
+        return "Введите email";
+    } else if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+        return "Email введен не корректно";
+    } else {
+        return null;
+    }
 }

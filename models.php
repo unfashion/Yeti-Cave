@@ -75,3 +75,22 @@ function add_user($link, $data)
         'error' => mysqli_error($link)
     ];
 }
+function get_login_user($link, $data)
+{
+    $sql = "SELECT * FROM `user` WHERE `email` = ?";
+    $stmt = mysqli_prepare($link, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $data['email']);
+    if (!mysqli_stmt_execute($stmt)) {
+        $error = 'Ошибка запроса к БД';
+    } else {
+        $result = mysqli_stmt_get_result($stmt);
+        $result = mysqli_fetch_assoc($result);
+        $is_pass = $result ? password_verify($data['password'], $result['pwd']) : null;
+        $error =  $is_pass ? null : 'Вы ввели неверный email/пароль';
+    }
+    $user = !$error ? $result : null;
+    return [
+        'user' => $user,
+        'error' => $error,
+    ];
+}

@@ -1,4 +1,10 @@
 <?php
+session_start();
+if(!isset($_SESSION['id'])){
+header('HTTP/1.1 403 Forbidden');
+exit();
+}
+
 require_once('helpers.php');
 require_once('functions.php');
 require_once('data.php');
