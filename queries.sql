@@ -64,3 +64,7 @@ SELECT `user`.`name`, `bet`.`price`, `bet`.`create_datetime` FROM `bet` JOIN `us
 
 -- Lot + bets + category
 SELECT lot.*, `user`.`name`, `bet`.`price`, `bet`.`create_datetime`, category.name, category.tag FROM `bet` JOIN `user` ON `bet`.`author_id` = `user`.`id` JOIN `lot` ON lot.author_id = `user`.`id` JOIN category ON category.id = lot.category_id WHERE `lot_id` = 1;
+
+-- Fulltext search
+SELECT * FROM `lot` WHERE MATCH(`name`, `description`) AGAINST(?)
+

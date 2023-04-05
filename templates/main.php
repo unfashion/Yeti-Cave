@@ -6,7 +6,7 @@
             <!--заполните этот список из массива категорий-->
             <?php foreach ($categories as $cat) : ?>
                 <li class="promo__item promo__item--<?= $cat['tag'] ?>">
-                    <a class="promo__link" href="pages/<?= $cat['tag'] ?>"><?= $cat['name'] ?></a>
+                    <a class="promo__link" href="category.php?id=<?= $cat['id'] ?>"><?= $cat['name'] ?></a>
                 </li>
             <?php endforeach ?>
         </ul>
@@ -28,10 +28,11 @@
                         <div class="lot__state">
                             <div class="lot__rate">
                                 <span class="lot__amount">Стартовая цена</span>
-                                <span class="lot__cost"><?= price_format($lot['price']) ?></span>
+                                <span class="lot__cost"><?= price_format($lot['start_price']) ?><b class="rub">р</b></span>
                             </div>
-                            <div class="lot__timer timer <?php if (time_left($lot['end_datetime'])[0] < 1) : ?>timer--finishing<?php endif ?>">
-                                <?= time_left($lot['end_datetime'])[0] . ':' . time_left($lot['end_datetime'])[1] ?>
+                            <?php $time_left = time_left($lot['end_datetime']) ?>
+                            <div class="lot__timer timer <?php if ($time_left['is_fire']) : ?>timer--finishing<?php endif ?>">
+                                <?= $time_left['hours'] . ':' . $time_left['minutes'] ?>
                             </div>
                         </div>
                     </div>

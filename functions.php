@@ -8,16 +8,41 @@
 function price_format($price)
 {
     $formatted_price = number_format($price, 0, '.', ' ');
-    return $formatted_price . '<b class="rub">р</b>';
+    return $formatted_price;
+}
+function bet_time_format($time){
+    $date = strtotime($time);
+    $today = strtotime('today');
+    $yesterday = strtotime('yesterday');
+    $sec_passed = time() - $date;
+    $min_passed = floor($sec_passed / 60);
+    $hours_passed = floor($min_passed / 60);
+    if ($sec_passed <= 1) return "только-что";
+    if ($min_passed < 1) return $sec_passed . " " . get_noun_plural_form($sec_passed, "секунда", "секунды", "секунд") . " назад";
+    if ($hours_passed < 1) return $min_passed . " " . get_noun_plural_form($min_passed, "минута", "минуты", "минут") . " назад";
+    if ($hours_passed == 1) return "час назад";
+    if ($hours_passed > 1 && $date > $today) return $hours_passed . " " . get_noun_plural_form($hours_passed, "час", "часа", "часов") . " назад";
+    if ($date < $today && $date > $yesterday) return date('вчера в H:i', $date);
+    return date('d.m.y в H:i', $date); 
 }
 function time_left($date)
 {
-    $date_timestamp = strtotime($date);
-    $seconds_left = $date_timestamp - time();
-    $minutes_left = ceil($seconds_left / 60);
-    $hours_left = floor($minutes_left / 60);
-    $minutes_remines = $minutes_left % 60;
-    return [$hours_left, $minutes_remines];
+    $end_date_timestamp = strtotime($date);
+    $seconds = $end_date_timestamp - time();
+    $hours = floor($seconds / 3600);
+    $minutes = floor($seconds % 3600 / 60);
+    $hours_pad = str_pad((string)$hours, 2, '0', STR_PAD_LEFT);
+    $minutes_pad = str_pad((string)$minutes, 2, '0', STR_PAD_LEFT);
+    $seconds_pad = str_pad((string)$seconds, 2, '0', STR_PAD_LEFT);
+    //echo date('H:i:s');
+    return [
+        'hours' => $hours_pad, 
+        'minutes' => $minutes_pad,
+        'seconds' => $seconds_pad,
+        'is_fire' => $hours < 1 ? true : false,
+        'is_end' => $seconds < 1 ? true : false,
+    ];
+    
 }
 function validate_length($value, $min, $max)
 {
@@ -153,4 +178,21 @@ function validate_login_email($value, $link)
     } else {
         return null;
     }
+}
+
+function validate_bet($bet, $min_bet)
+{
+    if(!$bet){
+        return "Укажите ставку";
+    }
+    if (!filter_var($bet, FILTER_VALIDATE_INT)) {
+        return "Ставка должна быть целым числом";
+    }
+    if (!isset($_SESSION['id'])){
+        return "Войдите в свою учетную запись, чтобы сделать ставку";
+    }
+    if ($bet < $min_bet){
+        return "Ставка не должна быть ниже минимальной";
+    }
+    return null;
 }

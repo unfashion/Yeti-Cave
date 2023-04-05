@@ -45,3 +45,5 @@ CREATE INDEX `bet_lot` ON `bet`(`lot_id`);
 CREATE UNIQUE INDEX `user_id` ON `user`(`id`);
 CREATE UNIQUE INDEX `lot_id` ON `lot`(`id`);
 
+-- Fulltext index
+CREATE FULLTEXT INDEX `lot_ft_search` ON `lot` (`name`,`description`);
