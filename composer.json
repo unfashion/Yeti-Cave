@@ -1,0 +1,14 @@
+{
+    "name": "undecided/yeti-cave",
+    "description": "php training project",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Undecided90210"
+        }
+    ],
+    "require": {
+        "symfony/mailer": "^6.0"
+    }
+}
