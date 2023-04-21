@@ -47,7 +47,8 @@ function get_lot($link, $id)
     ];
 }
 
-function get_bets_by_lot($link, $id){
+function get_bets_by_lot($link, $id)
+{
     $sql = "SELECT bet.*, user.name AS `author_name` FROM `bet` 
     JOIN `user` ON `user`.`id` = `bet`.`author_id`
     WHERE `lot_id` = ? ORDER BY `create_datetime` DESC";
@@ -213,7 +214,8 @@ function get_page_count_category($link, $limit, $id)
     ];
 }
 
-function get_category_by_id($link, $id){
+function get_category_by_id($link, $id)
+{
     $sql = "SELECT * FROM `category` WHERE id = $id";
     $result = mysqli_query($link, $sql);
     $data = $result ? mysqli_fetch_assoc($result) : '';
@@ -238,7 +240,8 @@ function add_bet($link, $bet, $lot_id, $author_id)
     ];
 }
 
-function get_bets_by_user($link, $id){
+function get_bets_by_user($link, $id)
+{
     $sql = "SELECT l.id AS lot_id, 
     l.img AS lot_img, 
     l.name AS lot_name, 
@@ -267,7 +270,8 @@ function get_bets_by_user($link, $id){
     ];
 }
 
-function define_winner($link){
+function define_winner($link)
+{
     // Получаем id всех лотов, которые вышли из срока и не имеют победителя
     $sql = "SELECT id FROM lot WHERE end_datetime < NOW() AND winner_id IS NULL";
     $result = mysqli_query($link, $sql);
@@ -276,23 +280,28 @@ function define_winner($link){
     // Если массив получен и в нем есть непустые значения, 
     // то запускаем цикл, где на каждой итерации получаем id автора 
     // самой высокой ставки.
-    if ($undef_win_lots and in_array(!null, $undef_win_lots)){
+    if ($undef_win_lots and in_array(!null, $undef_win_lots)) {
         foreach ($undef_win_lots as $lot) {
             $lot_id = $lot['id'];
             $sql = "SELECT author_id FROM bet WHERE lot_id = $lot_id 
                     ORDER BY price DESC LIMIT 1";
-            $author = mysqli_query($link, $sql);
-            $author = mysqli_fetch_assoc($author);
-            $author_id = $author['author_id'] ?? null;
+            $bet = mysqli_query($link, $sql);
+            $bet = mysqli_fetch_assoc($bet);
+            $author_id = $bet['author_id'] ?? null;
 
-            //Если такой автор нашелся, записываем его id в графу победителя лота
+            // Если победитель нашелся, записываем его id в графу победителя лота
             if ($author_id) {
                 $sql = "UPDATE lot SET winner_id = $author_id WHERE id = $lot_id";
-                $author = mysqli_query($link, $sql);
+                mysqli_query($link, $sql);
+
+                // и вызываем функцию отправки уведомления победителя
+                send_message($link, $lot_id);
             }
         }
     }
 }
+
+
 
 
 // SELECT `lot`.`id`, `lot`.`name`, `lot`.`start_price`, lot.winner_id, `lot`.`img`, `lot`.`end_datetime`, `category`.`name` AS `category`, IF(MAX(`bet`.`price`), MAX(`bet`.`price`), `lot`.`start_price`) AS `price`

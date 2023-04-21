@@ -6,7 +6,7 @@ require_once('init.php');
 require_once('models.php');
 
 $errors = [];
-$limit = 1;
+$limit = 6;
 $categories = get_categories_list($link);
 $params = [
     'id' => FILTER_SANITIZE_NUMBER_INT,
