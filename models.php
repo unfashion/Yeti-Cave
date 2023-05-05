@@ -270,7 +270,7 @@ function get_bets_by_user($link, $id)
     ];
 }
 
-function define_winner($link)
+function define_winner($link, $smtpdata)
 {
     // Получаем id всех лотов, которые вышли из срока и не имеют победителя
     $sql = "SELECT id FROM lot WHERE end_datetime < NOW() AND winner_id IS NULL";
@@ -295,7 +295,7 @@ function define_winner($link)
                 mysqli_query($link, $sql);
 
                 // и вызываем функцию отправки уведомления победителя
-                send_message($link, $lot_id);
+                send_message($link, $lot_id, $smtpdata);
             }
         }
     }

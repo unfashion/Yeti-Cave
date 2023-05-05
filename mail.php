@@ -5,7 +5,10 @@ use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mime\Email;
 
 require 'vendor/autoload.php';
-function send_message($link, $lot_id)
+
+
+
+function send_message($link, $lot_id, $smtpdata) 
 {
     // Получаем необходимую информацию о пбедителе, лоте и продавце
     $sql = "SELECT winner.name AS winner_name, 
@@ -21,7 +24,7 @@ function send_message($link, $lot_id)
     $data = mysqli_fetch_assoc($data);
 
     // Конфигурация траспорта
-    $dsn = 'smtp://yeti@unfashion.ru:ZttbgeuzMnFn9HgJu9Uq@smtp.mail.ru:465';
+    $dsn = 'smtp://' . $smtpdata['login'] . ':' . $smtpdata['pwd'] . '@' . $smtpdata['host'] . ':' . $smtpdata['port'];
     $transport = Transport::fromDsn($dsn);
 
     // Формирование сообщения
