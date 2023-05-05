@@ -3,10 +3,6 @@ require_once('helpers.php');
 require_once('functions.php');
 require_once('data.php');
 require_once('init.php');
-require_once('mail.php');
-require_once('models.php');
-
-$smtpdata = require_once('config/mail.php');
 
 $errors = [];
 $limit = 1;
@@ -14,7 +10,6 @@ $categories = get_categories_list($link);
 
 if (isset($_SESSION['id'])){
     $user_id = $_SESSION['id'];
-    define_winner($link, $smtpdata);
     $bets = get_bets_by_user($link, $user_id);
 } else {
     header("location: /404.php");

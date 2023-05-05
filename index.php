@@ -3,13 +3,17 @@ require_once('helpers.php');
 require_once('functions.php');
 require_once('data.php');
 require_once('init.php');
+require_once('mail.php');
 require_once('models.php');
+
+$smtpdata = require_once('config/mail.php');
 
 $errors = [];
 
 if (!$link) {
     $errors[] = mysqli_connect_error();
 } else {
+    define_winner($link, $smtpdata);
     $categories = get_categories_list($link);
     if ($categories['error']) {
         $errors[] = $categories['error'];
