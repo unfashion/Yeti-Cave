@@ -1,7 +1,6 @@
 <?php
 require_once('helpers.php');
 require_once('functions.php');
-require_once('data.php');
 require_once('init.php');
 require_once('models.php');
 
@@ -57,9 +56,7 @@ $main_content = include_template('sign-up.php', [
 $layout_content = include_template('layout.php', [
     'categories' => $categories['data'],
     'content' => $main_content,
-    'username' => $username,
     'title' => 'Зарегистрироваться',
-    'is_auth' => $is_auth,
 ]);
 
 print($layout_content);

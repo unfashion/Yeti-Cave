@@ -1,7 +1,6 @@
 <?php
 require_once('helpers.php');
 require_once('functions.php');
-require_once('data.php');
 require_once('init.php');
 require_once('models.php');
 
@@ -60,9 +59,7 @@ if ($errors) {
     $layout_content = include_template('layout.php', [
         'categories' => $categories['data'],
         'content' => $main_content,
-        //        'username' => $username, 
         'title' => $lot['data']['name'],
-        'is_auth' => $is_auth
     ]);
     print($layout_content);
 }

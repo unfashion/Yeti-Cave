@@ -1,7 +1,6 @@
 <?php
 require_once('helpers.php');
 require_once('functions.php');
-require_once('data.php');
 require_once('init.php');
 require_once('models.php');
 
@@ -16,7 +15,6 @@ $params = [
 $params = filter_input_array(INPUT_GET, $params, true);
 $params = $params ?? null;
 $page_count = get_page_count_search($link, $limit, $params['search']);
-print_r($page_count);
 $lots = $params ?  get_search_result($link, $params['search'], $params['page'], $limit) : null;
 $page = $params['page'] ?? 1;
 
@@ -33,9 +31,7 @@ if ($errors) {
     $layout_content = include_template('layout.php', [
         'categories' => $categories['data'], 
         'content' => $main_content, 
-        'username' => $username, 
         'title' => 'Поиск', 
-        'is_auth' => $is_auth
     ]);
     print($layout_content);
 }

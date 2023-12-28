@@ -6,7 +6,6 @@ if (isset($_SESSION['id'])) {
 
 require_once('helpers.php');
 require_once('functions.php');
-require_once('data.php');
 require_once('init.php');
 require_once('models.php');
 
@@ -46,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             session_start();
             $_SESSION['id'] = $user_data['user']['id'];
             $_SESSION['name'] = $user_data['user']['name'];
-            print_r($_SESSION['id']);
             header('Location: /');
         }
     }
@@ -60,9 +58,7 @@ $main_content = include_template('login.php', [
 $layout_content = include_template('layout.php', [
     'categories' => $categories['data'],
     'content' => $main_content,
-    'username' => $username,
     'title' => 'Зарегистрироваться',
-    'is_auth' => $is_auth,
 ]);
 
 print($layout_content);

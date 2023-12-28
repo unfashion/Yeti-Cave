@@ -7,7 +7,6 @@ exit();
 
 require_once('helpers.php');
 require_once('functions.php');
-require_once('data.php');
 require_once('init.php');
 require_once('models.php');
 
@@ -73,5 +72,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 $main_content = include_template('add.php', ['categories' => $categories['data'], 'errors' => $errors]);
-$layout_content = include_template('layout.php', ['categories' => $categories['data'], 'content' => $main_content, 'username' => $username, 'title' => '', 'is_auth' => $is_auth]);
+$layout_content = include_template('layout.php', ['categories' => $categories['data'], 'content' => $main_content, 'title' => '']);
 print($layout_content);
